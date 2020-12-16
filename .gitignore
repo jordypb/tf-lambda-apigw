@@ -1,0 +1,23 @@
+# Local .terraform directories
+**/.terraform/*
+**/terraform.tfstate.d/
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+**/*.tfstate.*
+*kubeconfig*
+
+# cache files
+__pycache__/
+*.pyc
+*.swp
+*.zip
+
+# binary terraform or terragrunt
+terraform-v0*
+terragrunt-v0*
+terragrunt-debug*
+
+# builds folders
+builds/
