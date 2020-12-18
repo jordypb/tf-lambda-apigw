@@ -1,15 +1,11 @@
-# This is a sample Python script.
+import json
 
 import requests
-import os
-import json
 from slugify import slugify
 
 from queries import get_query_id_name, VARIANT_QUERY, UPDATE_VARIANT_STOCK_IMPROVED
 
-token=os.environ['token']
-endpoint=os.environ['endpoint']
- 
+
 def search_to_variables(search):
     return {
         "filter": {
@@ -88,7 +84,7 @@ class ProductStockResource:
     def get_warehouse_id(self, warehouse_name):
         warehouse_slug = slugify(warehouse_name)
         warehouse_id = self.get_entity_id_by_key(warehouse_slug, 'Warehouse',
-                                                        'warehouses', 'slug')
+                                                 'warehouses', 'slug')
         return warehouse_id
 
     def get_product_by_sku(self, sku_value, type_name='productVariants', key='slug'):
@@ -118,37 +114,3 @@ class ProductStockResource:
         }
         response = self.graphql_execute(query, variables)
         return response
-
-def lambda_handler(event, context):
-    sku=int(event["key1"])
-    warehouse=event["key2"]
-    quantity=int(event["key3"])
-    print(sku,warehouse,quantity)
-    print('run:\n')
-#    print(token,endpoint)
-
-    transactionResponse = {}
-    transactionResponse['value1'] = sku
-    transactionResponse['value2'] = warehouse
-    transactionResponse['value3'] = quantity
-    transactionResponse['message'] = 'hello from tf-lambda'
-
-    responseObject = {}
-    responseObject['statusCode'] = 200
-    responseObject['headers'] = {}
-    responseObject['headers']['Content-Type'] = 'application/json'
-    responseObject['body'] = json.dumps(transactionResponse)
-
-    return responseObject
-
-    #productStockResource = ProductStockResource(token,endpoint)
-    #response = productStockResource.update_stock(sku,warehouse,quantity)
-    #print(response)
-#print (lambda_handler())
-
-
-
-#if __name__ == "__main__":
-#    # resource = ProductStockResource(api_token='z6Dwb4JrQu9lLhEWClHwRtZAlUaXiI', endpoint='http://127.0.0.1:8000/graphql/')
-#    # resource.update_stock('43226647', 'Americas', 50)
-#    pass

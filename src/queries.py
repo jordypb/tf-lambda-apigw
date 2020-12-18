@@ -41,7 +41,7 @@ UPDATE_VARIANT_STOCK_IMPROVED = """
             $warehouse: ID!,
             $quantity: Int,
         ) {
-        productVariantStocksUpdateImproved(
+        productVariantIncrementOrDecrementStock(
                 variantId: $variantId,
                 stocks: [{
                     warehouse: $warehouse,

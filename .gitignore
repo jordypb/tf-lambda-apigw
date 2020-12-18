@@ -21,3 +21,7 @@ terragrunt-debug*
 
 # builds folders
 builds/
+
+# others
+swagger.*
+
