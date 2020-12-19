@@ -11,4 +11,3 @@ variable "memory_size" {
 }
 
 variable "environment" {}
-variable "swagger"    {}
