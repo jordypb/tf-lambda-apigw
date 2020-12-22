@@ -1,4 +1,5 @@
 locals {
+  lambda_name_layer=module.lambda.this_lambda_function_name
   lambda_name=var.name
   region=var.regionaws
   common_tags = {

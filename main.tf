@@ -5,10 +5,11 @@ module "lambda" {
 
   function_name      = local.lambda_name
   description        = "description should be here"
-  handler            = "index.lambda_handler"
+  handler            = var.handler
 # https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
   runtime            = var.runtime
   source_path        = "./src/"
+#  source_path        = "git@github.com:jordypb/lambda_python.git"
 #  create_package         = false
 #  local_existing_package = "./package.zip"
   layers = [
@@ -24,12 +25,16 @@ module "lambda" {
   store_on_s3 = true
   s3_bucket = var.bucket_name
 #  role_arn           = "arn:aws:iam::aws:policy/AmazonSESFullAccess"
-#  role_arn	     = "arn:aws:iam::aws:policy/AdministratorAccess-Amplify"
-
-#  vpc_subnet_ids     = var.public_subnets_id
-#  security_group_ids = ["sg-3asdfadsfasdfas"]
 
   tags = {
     Environment = var.environment
   }
+}
+# https://registry.terraform.io/modules/corpit-consulting-public/lambda-layer-version-mod/aws/latest
+# https://forums.aws.amazon.com/thread.jspa?threadID=247365
+resource "aws_lambda_layer_version" "lambda_layer" {
+  filename = "package.zip"
+# puede ser local o s3
+  layer_name = "layer-${local.lambda_name}"
+  compatible_runtimes = [var.runtime]
 }

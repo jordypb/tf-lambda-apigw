@@ -1,7 +1,6 @@
 resource "aws_api_gateway_rest_api" "api" {
   name        = var.name
   description = "This is my API for demonstration purposes"
-
   endpoint_configuration {
     types = ["REGIONAL"]
   }
@@ -11,7 +10,6 @@ resource "aws_lambda_permission" "lambda_permission" {
   action        = "lambda:InvokeFunction"
   function_name = var.name
   principal     = "apigateway.amazonaws.com"
-
   # The /*/*/* part allows invocation from any stage, method and resource path
   # within API Gateway REST API.
   source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
@@ -61,7 +59,7 @@ resource "aws_api_gateway_method_response" "response_200" {
 #  }
 }
 
-resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
+resource "aws_api_gateway_integration_response" "integrationResponse" {
 #  depends_on = [module.lambda.this_lambda_function_invoke_arn,aws_api_gateway_integration.integration]
   depends_on = [aws_api_gateway_integration.integration]
 #  depends_on = [aws_api_gateway_integration.integration.uri]
@@ -84,20 +82,15 @@ resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
 
 resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [aws_api_gateway_integration.integration]
-
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name  = var.environment
-
   variables = {
     "answer" = "42"
   }
-
   lifecycle {
     create_before_destroy = true
   }
 }
-
-
 
 resource "aws_cloudwatch_log_group" "example" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api.name}/${var.environment}"

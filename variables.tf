@@ -9,5 +9,5 @@ variable "timeout" {
 variable "memory_size" {
   type = number
 }
-
 variable "environment" {}
+variable "handler" {}
