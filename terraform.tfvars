@@ -1,6 +1,5 @@
 // ------------------terraform.tfvars to deploy lambda in aws
 name        = ""
-bucket_name = ""
 regionaws   = "us-east-1"
 profileaws  = ""
 runtime     = "python3.8"

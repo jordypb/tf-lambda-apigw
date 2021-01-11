@@ -1,5 +1,4 @@
 variable "name" {}
-variable "bucket_name" {}
 variable "regionaws" {}
 variable "profileaws" {}
 variable "runtime" {}
