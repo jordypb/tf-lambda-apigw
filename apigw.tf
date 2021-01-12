@@ -92,8 +92,8 @@ resource "aws_api_gateway_deployment" "deployment" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "example" {
-  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api.name}/${var.environment}"
-  retention_in_days = 7
-  # ... potentially other configuration ...
-}
+#resource "aws_cloudwatch_log_group" "example" {
+#  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api.name}/${var.environment}"
+#  retention_in_days = 7
+#  # ... potentially other configuration ...
+#}
